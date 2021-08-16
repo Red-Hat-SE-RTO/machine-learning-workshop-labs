@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/tensorflow:21.05-tf2-py3
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt risk-assessment.py FreeMono.ttf ./
+COPY requirements.txt risk-assessment.py liquor_model.h5 FreeMono.ttf ./
 
 RUN pip install -r requirements.txt
 

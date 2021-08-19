@@ -10,7 +10,6 @@ objects:
     labels:
       app: grafana
     name: liquorlab-dashboard
-    uid: liquorlabdashboard
   spec:
     json: |
       {
@@ -107,7 +106,7 @@ objects:
                           "ypos": "298"
                       }
                   ],
-                  "datasource": "MySQL",
+                  "datasource": "LiquorMySQL",
                   "fieldConfig": {
                       "defaults": {
                           "custom": {
@@ -247,7 +246,7 @@ objects:
                   "columns": [
 
                   ],
-                  "datasource": "MySQL",
+                  "datasource": "LiquorMySQL",
                   "fieldConfig": {
                       "defaults": {
                           "custom": {
@@ -388,7 +387,7 @@ objects:
                   "columns": [
 
                   ],
-                  "datasource": "MySQL",
+                  "datasource": "LiquorMySQL",
                   "fieldConfig": {
                       "defaults": {
                           "custom": {
@@ -509,7 +508,7 @@ objects:
                   "bars": false,
                   "dashLength": 10,
                   "dashes": false,
-                  "datasource": "MySQL",
+                  "datasource": "LiquorMySQL",
                   "fieldConfig": {
                       "defaults": {
                           "custom": {
@@ -666,7 +665,7 @@ objects:
                   "bars": false,
                   "dashLength": 10,
                   "dashes": false,
-                  "datasource": "MySQL",
+                  "datasource": "LiquorMySQL",
                   "fieldConfig": {
                       "defaults": {
                           "custom": {
@@ -822,7 +821,7 @@ objects:
                   "columns": [
 
                   ],
-                  "datasource": "MySQL",
+                  "datasource": "LiquorMySQL",
                   "fieldConfig": {
                       "defaults": {
                           "custom": {
@@ -1018,8 +1017,8 @@ objects:
               ]
           },
           "timezone": "utc",
-          "title": "XRay Lab",
-          "uid": "MbnyQzjGk",
+          "title": "Liquor Lab",
+          "uid": "MbnyQzjOk",
           "version": 1
       }
     name: liquorlab-dashboard.json

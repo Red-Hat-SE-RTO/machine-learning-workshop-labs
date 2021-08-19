@@ -10,7 +10,6 @@ objects:
     labels:
       app: grafana
     name: xraylab-dashboard
-    uid: xraylabdashboard
   spec:
     json: |
       {

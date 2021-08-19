@@ -35,7 +35,7 @@ s3client = boto3.client('s3','us-east-1', endpoint_url=service_point,
                         use_ssl = True if 'https' in service_point else False)
 
 # Bucket base name
-bucket_base_name = os.getenv('bucket-base-name', 'images')
+bucket_base_name = os.getenv('bucket-base-name', 'liquor-images')
 
 # Helper database
 db_user = os.getenv('database-user', 'liquorlab')
@@ -105,22 +105,22 @@ def process_event(data):
             logging.info('Image processed')
 
             # If "unsure" of prediction, anonymize image
-            if (result['pred'] < 0.80 and  result['pred'] > 0.60):
-                anonymized_data = anonymize(img,img_name)
-                split_key = img_key.rsplit('/', 1)
-                if len(split_key) == 1:
-                    anonymized_image_key = anonymized_data['anon_img_name']
-                else:
-                    anonymized_image_key = split_key[0] + '/' + anonymized_data['anon_img_name']
-                anonymized_img = anonymized_data['img_anon']
-                buffer = BytesIO()
-                anonymized_img.save(buffer, get_safe_ext(anonymized_image_key))
-                buffer.seek(0)
-                sent_data = s3client.put_object(Bucket=bucket_base_name+'-anonymized', Key=anonymized_image_key, Body=buffer)
-                if sent_data['ResponseMetadata']['HTTPStatusCode'] != 200:
-                    raise logging.error('Failed to upload image {} to bucket {}'.format(anonymized_image_key, bucket_base_name+'-anonymized'))
-                update_images_anonymized(anonymized_image_key)
-                logging.info('Image anonymized')
+            # if (result['pred'] < 0.80 and  result['pred'] > 0.60):
+            #     anonymized_data = anonymize(img,img_name)
+            #     split_key = img_key.rsplit('/', 1)
+            #     if len(split_key) == 1:
+            #         anonymized_image_key = anonymized_data['anon_img_name']
+            #     else:
+            #         anonymized_image_key = split_key[0] + '/' + anonymized_data['anon_img_name']
+            #     anonymized_img = anonymized_data['img_anon']
+            #     buffer = BytesIO()
+            #     anonymized_img.save(buffer, get_safe_ext(anonymized_image_key))
+            #     buffer.seek(0)
+            #     sent_data = s3client.put_object(Bucket=bucket_base_name+'-anonymized', Key=anonymized_image_key, Body=buffer)
+            #     if sent_data['ResponseMetadata']['HTTPStatusCode'] != 200:
+            #         raise logging.error('Failed to upload image {} to bucket {}'.format(anonymized_image_key, bucket_base_name+'-anonymized'))
+            #     update_images_anonymized(anonymized_image_key)
+            #     logging.info('Image anonymized')
 
     except Exception as e:
         logging.error(f"Unexpected error: {e}")

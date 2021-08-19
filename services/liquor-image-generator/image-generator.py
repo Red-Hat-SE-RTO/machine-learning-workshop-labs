@@ -22,7 +22,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 # Object storage
 access_key = os.getenv('AWS_ACCESS_KEY_ID', None)
 secret_key = os.getenv('AWS_SECRET_ACCESS_KEY', None)
-service_point = os.getenv('SERVICE_POINT', 'http://ceph-nano-0/')
+service_point = os.getenv('S3_URL_ENDPOINT', 'http://ceph-nano-0/')
 s3client = boto3.client('s3', 'us-east-1', endpoint_url=service_point,
                         aws_access_key_id=access_key,
                         aws_secret_access_key=secret_key,
@@ -33,7 +33,7 @@ s3sourceclient = boto3.client('s3', config=Config(signature_version=UNSIGNED))
 # Buckets
 bucket_source = os.getenv('BUCKET_SOURCE', 'https://s3.us-east-1.amazonaws.com/network.kemo.redhat.ml-liquor')
 bucket_source_name = bucket_source.split('/')[-1]
-bucket_destination = os.getenv('BUCKET_BASE_NAME', 'images')
+bucket_destination = os.getenv('BUCKET_BASE_NAME', 'liquor-images')
 
 # Helper database
 db_user = os.getenv('DATABASE_USER', 'liquorlab')

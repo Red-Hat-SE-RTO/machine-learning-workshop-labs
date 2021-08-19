@@ -28,20 +28,20 @@ logging.info('Num GPUs Available: ' +  str(len(tf.config.list_physical_devices('
 # Object storage
 access_key = os.getenv('AWS_ACCESS_KEY_ID', None)
 secret_key = os.getenv('AWS_SECRET_ACCESS_KEY', None)
-service_point = os.getenv('service_point', 'http://ceph-nano-0/')
+service_point = os.getenv('S3_URL_ENDPOINT', 'http://ceph-nano-0/')
 s3client = boto3.client('s3','us-east-1', endpoint_url=service_point,
                        aws_access_key_id = access_key,
                        aws_secret_access_key = secret_key,
                         use_ssl = True if 'https' in service_point else False)
 
 # Bucket base name
-bucket_base_name = os.getenv('bucket-base-name', 'liquor-images')
+bucket_base_name = os.getenv('BUCKET_BASE_NAME', 'liquor-images')
 
 # Helper database
-db_user = os.getenv('database-user', 'liquorlab')
-db_password = os.getenv('database-password', 'liquorlab')
-db_host = os.getenv('database-host', 'liquorlabdb')
-db_db = os.getenv('database-db', 'liquorlabdb')
+db_user = os.getenv('DATABASE_USER', 'liquorlab')
+db_password = os.getenv('DATABASE_PASSWORD', 'liquorlab')
+db_host = os.getenv('DATABASE_HOST', 'liquorlabdb')
+db_db = os.getenv('DATABASE_DB', 'liquorlabdb')
 
 # Inference model version
 model_version = os.getenv('model_version', '1')

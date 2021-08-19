@@ -92,9 +92,9 @@ CORS(app)
 # Test route
 @app.route('/')
 def homepage():
-    html = HOME_TEMPLATE.substitute(last_uploaded=last_image_small('images'),
-                                    last_processed=last_image_small('images-processed'),
-                                    last_anonymized=last_image_small('images-anonymized'))
+    html = HOME_TEMPLATE.substitute(last_uploaded=last_image_small(bucket_base_name),
+                                    last_processed=last_image_small(bucket_base_name + '-processed'),
+                                    last_anonymized=last_image_small(bucket_base_name + '-anonymized'))
     
     return html
 

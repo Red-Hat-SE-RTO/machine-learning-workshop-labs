@@ -118,7 +118,7 @@ def process_inference_event(data):
                 logging.info('prediction made')
                 score = tf.nn.softmax(pred[0])
 
-                with open('class_names.json') as json_file:
+                with open('./class_names.json') as json_file:
                     class_names = json.load(json_file)
             
                 label=class_names[np.argmax(score)] + ', guess=' + str(round(100 * np.max(score),2)) + '%'

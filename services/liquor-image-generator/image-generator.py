@@ -103,15 +103,20 @@ for image in s3sourceclient.list_objects(Bucket=bucket_source_name,Prefix='HERRA
 # Main loop
 while seconds_wait != 0: #This allows the container to keep running but not send any image if parameter is set to 0
     logging.info("copy image")
+    # Quick randomness
     rand_type = random.randint(1,10)
-    if rand_type <= 8: # 80% of time, choose a Hendricks image
+    if rand_type <= 6: # 60% of time, choose a Hendricks image
         image_key = hendricks_images[random.randint(0,len(hendricks_images)-1)]
     else:
         image_key = herradura_images[random.randint(0,len(herradura_images)-1)]
     image_name = image_key.split('/')[-1]
+    # Copy file from source bucket to target bucket
     copy_file(bucket_source,image_key,bucket_destination,image_name)
+    # Send the event to the Kafka Topic
     send_event(bucket_destination,image_name)
+    # Add the image to the images_uploaded Helper DB
     update_images_uploaded(image_name)
+    # Sleep and come back and do it again
     sleep(seconds_wait)
 
 # Dirty hack to keep container running even when no images are to be copied

@@ -10,7 +10,7 @@ import boto3
 import numpy as np
 import tensorflow as tf
 from cloudevents.http import from_http
-from flask import Flask, request
+from flask import Flask, request, Response, jsonify
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 import mysql.connector

@@ -128,7 +128,8 @@ def process_inference_event(data):
                 raise
 
             logging.info('label')
-            prediction = {'label':label,'pred':pred[0][0]}
+            #prediction = {'label':label,'pred':pred[0][0]}
+            prediction = {'label':label,'pred':round(100 * np.max(score),2)}
             logging.info('result=' + prediction['label'])
 
             # Get original image and print prediction on it

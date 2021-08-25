@@ -73,8 +73,6 @@ HOME_TEMPLATE = Template("""
 ${last_uploaded}
 <h2>Last Proccessed Image</h2>
 ${last_processed}
-<h2>Last Anonymized Image</h2>
-${last_anonymized}
 </body>
 </html>
 """)
@@ -93,8 +91,7 @@ CORS(app)
 @app.route('/')
 def homepage():
     html = HOME_TEMPLATE.substitute(last_uploaded=last_image_small(bucket_base_name),
-                                    last_processed=last_image_small(bucket_base_name + '-processed'),
-                                    last_anonymized=last_image_small(bucket_base_name + '-anonymized'))
+                                    last_processed=last_image_small(bucket_base_name + '-processed'))
     
     return html
 

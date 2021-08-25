@@ -129,7 +129,7 @@ def process_inference_event(data):
 
             logging.info('label')
             #prediction = {'label':label,'pred':pred[0][0]}
-            prediction = {'label':label,'pred':round(100 * np.max(score),2)}
+            prediction = {'label':label,'class':class_names[np.argmax(score)],'pred':round(100 * np.max(score),2)}
             logging.info('result=' + prediction['label'])
 
             # Get original image and print prediction on it
@@ -137,7 +137,11 @@ def process_inference_event(data):
             img = Image.open(BytesIO(image_object['Body'].read()))
             draw = ImageDraw.Draw(img)
             font = ImageFont.truetype('FreeMono.ttf', 50)
-            draw.text((0, 0), prediction['label'], (255), font=font)
+            draw.text((-1, 1), prediction['label'], font=font, fill=(255,255,255,255))
+            draw.text((1, -1), prediction['label'], font=font, fill=(255,255,255,255))
+            draw.text((-1, -1), prediction['label'], font=font, fill=(255,255,255,255))
+            draw.text((1, 1), prediction['label'], font=font, fill=(255,255,255,255))
+            draw.text((0, 0), prediction['label'], font=font, fill=(0,0,0,255))
 
             # Save image with "-processed" appended to name
             computed_image_key = os.path.splitext(img_key)[0] + '-processed.' + os.path.splitext(img_key)[-1].strip('.')

@@ -129,14 +129,14 @@ def process_inference_event(data):
 
             logging.info('label')
             prediction = {'label':label,'pred':pred[0][0]}
-            logging.info('result=' + result['label'])
+            logging.info('result=' + prediction['label'])
 
             # Get original image and print prediction on it
             image_object = s3client.get_object(Bucket=bucket_name,Key=img_key)
             img = Image.open(BytesIO(image_object['Body'].read()))
             draw = ImageDraw.Draw(img)
             font = ImageFont.truetype('FreeMono.ttf', 50)
-            draw.text((0, 0), result['label'], (255), font=font)
+            draw.text((0, 0), prediction['label'], (255), font=font)
 
             # Save image with "-processed" appended to name
             computed_image_key = os.path.splitext(img_key)[0] + '-processed.' + os.path.splitext(img_key)[-1].strip('.')
@@ -146,7 +146,7 @@ def process_inference_event(data):
             sent_data = s3client.put_object(Bucket=bucket_base_name+'-processed', Key=computed_image_key, Body=buffer)
             if sent_data['ResponseMetadata']['HTTPStatusCode'] != 200:
                 raise logging.error('Failed to upload image {} to bucket {}'.format(computed_image_key, bucket_base_name + '-processed'))
-            update_images_processed(computed_image_key,model_version,result['label'])
+            update_images_processed(computed_image_key,model_version,prediction['label'])
             logging.info('Image processed')
             
             return prediction

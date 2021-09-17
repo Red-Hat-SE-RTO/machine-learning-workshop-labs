@@ -31,7 +31,7 @@ s3client = boto3.client('s3', 'us-east-1', endpoint_url=service_point,
 s3sourceclient = boto3.client('s3', config=Config(signature_version=UNSIGNED))
 
 # Buckets
-bucket_source = os.getenv('BUCKET_SOURCE', 'https://s3.us-east-1.amazonaws.com/network.kemo.redhat.ml-liquor')
+bucket_source = os.getenv('BUCKET_SOURCE', 'https://polyglot-academy-pub.nyc3.digitaloceanspaces.com/liquor-ml')
 bucket_source_name = bucket_source.split('/')[-1]
 bucket_destination = os.getenv('BUCKET_BASE_NAME', 'liquor-images')
 
@@ -94,10 +94,10 @@ def update_images_uploaded(image_name):
 
 # Populate source images lists
 hendricks_images=[]
-for image in s3sourceclient.list_objects(Bucket=bucket_source_name,Prefix='HENDRICKS/')['Contents']:
+for image in s3sourceclient.list_objects(Bucket=bucket_source_name,Prefix='HENDRICKS/val/')['Contents']:
     hendricks_images.append(image['Key'])
 herradura_images=[]
-for image in s3sourceclient.list_objects(Bucket=bucket_source_name,Prefix='HERRADURA/')['Contents']:
+for image in s3sourceclient.list_objects(Bucket=bucket_source_name,Prefix='HERRADURA/val/')['Contents']:
     herradura_images.append(image['Key'])
 
 # Main loop
